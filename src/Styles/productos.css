@@ -1,0 +1,156 @@
+.productos-wrapper {
+  padding: 30px;
+  background: #f4f6f8;
+  min-height: 100vh;
+}
+
+.productos-header h1 {
+  font-size: 28px;
+  color: #1976D2;
+  margin-bottom: 6px;
+}
+
+.productos-header p {
+  font-size: 16px;
+  color: #555;
+}
+
+.productos-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn-agregar {
+  background-color: #1976D2;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.btn-agregar:hover {
+  background-color: #1565c0;
+}
+
+.busqueda-filtros {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.input-busqueda {
+  padding: 10px 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  min-width: 280px;
+}
+
+.productos-tabla {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.tabla-productos {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.tabla-productos thead {
+  background-color: #1976D2;
+  color: #fff;
+}
+
+.tabla-productos th,
+.tabla-productos td {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 15px;
+}
+
+.tabla-productos tbody tr:nth-child(even) {
+  background-color: #f4f6f8;
+}
+
+.tabla-productos tbody tr:hover {
+  background-color: #e3f2fd;
+}
+
+.tabla-productos td {
+  color: #333;
+}
+
+.btn-accion {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 8px;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.btn-accion.editar:hover {
+  background-color: rgba(25, 118, 210, 0.1);
+  color: #1976D2;
+}
+
+.btn-accion.eliminar:hover {
+  background-color: rgba(211, 47, 47, 0.1);
+  color: #d32f2f;
+}
+
+.productos-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input-busqueda {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 300px;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-busqueda:focus {
+  border-color: #1976D2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+  outline: none;
+}
+
+.btn-agregar {
+  background-color: #1976D2;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  font-size: 15px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-agregar:hover {
+  background-color: #1565c0;
+  transform: scale(1.02);
+}
