@@ -203,6 +203,11 @@
   outline: none;
 }
 
+.modal-body input:optional {
+  background-color: #f9f9f9;
+  border-color: #ccc;
+}
+
 .modal-body input[name="codigo"],
 .modal-body input[name="nombre"],
 .modal-body input[name="precio"] {
@@ -231,4 +236,69 @@
 
 .btn-cancelar:hover {
   background-color: #c1c1c1;
+}
+
+.modal-eliminar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-contenido {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  animation: aparecer 0.3s ease-out;
+}
+
+.modal-contenido h2 {
+  margin-bottom: 10px;
+  color: #cc0000;
+}
+
+.modal-botones {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.btn-cancelar,
+.btn-confirmar {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-cancelar {
+  background-color: #ccc;
+  color: #333;
+}
+
+.btn-confirmar {
+  background-color: #cc0000;
+  color: white;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

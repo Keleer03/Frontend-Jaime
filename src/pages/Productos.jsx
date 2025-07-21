@@ -2,103 +2,68 @@ import React, { useState } from 'react';
 import '../styles/productos.css';
 import { PlusCircle, Edit, Trash2 } from 'lucide-react';
 
-const productosEjemplo = [
-  {
-    id: 1,
-    codigo: 'PRD001',
-    nombre: 'Granito Blanco',
-    precio: 45000,
-    cantidad: 20,
-    peso: 35,
-    volumen: 2.5,
-    permisosEspeciales: ['Ninguno'],
-  },
-  {
-    id: 2,
-    codigo: 'PRD002',
-    nombre: 'Mármol Gris',
-    precio: 62000,
-    cantidad: 12,
-    peso: 28,
-    volumen: 1.8,
-    permisosEspeciales: ['Transporte químico'],
-  }
-];
-
 function Productos() {
+  const [productos, setProductos] = useState([]);
   const [busqueda, setBusqueda] = useState('');
-  const [nombreFiltro, setNombreFiltro] = useState('');
-  const [orden, setOrden] = useState('');
   const [mostrarModal, setMostrarModal] = useState(false);
-  const [productoAEliminar, setProductoAEliminar] = useState(null);
   const [productoEnEdicion, setProductoEnEdicion] = useState(null);
-  const [productos, setProductos] = useState(productosEjemplo);
+  const [productoAEliminar, setProductoAEliminar] = useState(null);
+  const [mostrarModalEliminar, setMostrarModalEliminar] = useState(false);
+
+  const abrirModalEliminar = (producto) => {
+    setProductoAEliminar(producto);
+    setMostrarModalEliminar(true);
+  };
+
+  const confirmarEliminacion = () => {
+    setProductos(prev => prev.filter(p => p.id !== productoAEliminar.id));
+    setMostrarModalEliminar(false);
+    setProductoAEliminar(null);
+  };
+
+  const cancelarEliminacion = () => {
+    setMostrarModalEliminar(false);
+    setProductoAEliminar(null);
+  };
+
   const [formulario, setFormulario] = useState({
-    codigo: '',
+    idProveedor: '',
     nombre: '',
-    precio: '',
-    cantidad: '',
+    descripcion: '',
     peso: '',
     volumen: '',
-    permisosEspeciales: ''
-  });
-
-  const nombresUnicos = [...new Set(productos.map(p => p.nombre))];
-
-  let productosFiltrados = productos.filter((prod) => {
-    const query = busqueda.toLowerCase();
-    return (
-      (prod.nombre.toLowerCase().includes(query) || prod.codigo.toLowerCase().includes(query)) &&
-      (nombreFiltro === '' || prod.nombre === nombreFiltro)
-    );
-  });
-
-  productosFiltrados.sort((a, b) => {
-    if (!orden) return 0;
-    if (orden === 'nombre') return a.nombre.localeCompare(b.nombre);
-    if (orden === 'precio') return a.precio - b.precio;
-    return 0;
+    precioUnitario: ''
   });
 
   const abrirModal = (producto = null) => {
     if (producto) {
       setProductoEnEdicion(producto);
-      setFormulario({
-        codigo: producto.codigo,
-        nombre: producto.nombre,
-        precio: producto.precio,
-        cantidad: producto.cantidad,
-        peso: producto.peso,
-        volumen: producto.volumen,
-        permisosEspeciales: producto.permisosEspeciales.join(', ')
-      });
+      setFormulario({ ...producto });
     } else {
+      setProductoEnEdicion(null);
       setFormulario({
-        codigo: '',
+        idProveedor: '',
         nombre: '',
-        precio: '',
-        cantidad: '',
+        descripcion: '',
         peso: '',
         volumen: '',
-        permisosEspeciales: ''
+        precioUnitario: ''
       });
-      setProductoEnEdicion(null);
     }
     setMostrarModal(true);
   };
 
   const cerrarModal = () => {
     setMostrarModal(false);
+    setProductoEnEdicion(null);
     setFormulario({
-      codigo: '',
+      idProveedor: '',
       nombre: '',
-      precio: '',
-      cantidad: '',
+      descripcion: '',
       peso: '',
       volumen: '',
-      permisosEspeciales: ''
+      precioUnitario: ''
     });
-    setProductoEnEdicion(null);
   };
 
   const manejarCambio = (e) => {
@@ -108,51 +73,41 @@ function Productos() {
 
   const manejarEnvio = (e) => {
     e.preventDefault();
-    if (!formulario.codigo || !formulario.nombre || !formulario.precio) {
-      alert('Los campos Código, Nombre y Precio son obligatorios.');
+
+    if (!formulario.nombre || !formulario.precioUnitario || !formulario.idProveedor) {
+      alert('Por favor completa los campos obligatorios: nombre, proveedor y precio unitario.');
       return;
     }
 
-    const productoProcesado = {
+    const nuevoProducto = {
       ...formulario,
-      precio: parseFloat(formulario.precio),
-      cantidad: parseInt(formulario.cantidad),
-      peso: parseFloat(formulario.peso),
-      volumen: parseFloat(formulario.volumen),
-      permisosEspeciales: formulario.permisosEspeciales.split(',').map(p => p.trim())
+      peso: formulario.peso || null,
+      volumen: formulario.volumen || null,
+      descripcion: formulario.descripcion || null,
+      precioUnitario: parseFloat(formulario.precioUnitario)
     };
 
     if (productoEnEdicion) {
-      setProductos(prev => prev.map(p => p.id === productoEnEdicion.id ? { ...p, ...productoProcesado } : p));
+      setProductos(prev => prev.map(p => p.id === productoEnEdicion.id ? { ...p, ...nuevoProducto } : p));
     } else {
-      const nuevoProducto = {
-        id: productos.length + 1,
-        ...productoProcesado
-      };
-      setProductos([...productos, nuevoProducto]);
+      setProductos(prev => [
+        ...prev,
+        { id: prev.length + 1, ...nuevoProducto }
+      ]);
     }
 
     cerrarModal();
   };
 
-  const confirmarEliminar = (producto) => {
-    setProductoAEliminar(producto);
-  };
-
-  const eliminarProductoConfirmado = () => {
-    setProductos(prev => prev.filter(p => p.id !== productoAEliminar.id));
-    setProductoAEliminar(null);
-  };
-
-  const cancelarEliminar = () => {
-    setProductoAEliminar(null);
-  };
+  const productosFiltrados = productos.filter(p =>
+    p.nombre.toLowerCase().includes(busqueda.toLowerCase())
+  );
 
   return (
     <div className="productos-wrapper">
       <header className="productos-header">
         <h1>Gestión de Productos</h1>
-        <p>Aquí puedes ver, agregar, editar o eliminar tus productos registrados.</p>
+        <p>Consulta, registra o modifica productos del inventario.</p>
       </header>
 
       <section className="productos-controls">
@@ -161,36 +116,13 @@ function Productos() {
           Agregar producto
         </button>
 
-        <div className="busqueda-filtros">
-          <input
-            type="text"
-            placeholder="Buscar por nombre o código..."
-            className="input-busqueda"
-            value={busqueda}
-            onChange={(e) => setBusqueda(e.target.value)}
-          />
-
-          <select
-            value={nombreFiltro}
-            onChange={(e) => setNombreFiltro(e.target.value)}
-            className="select-filtro"
-          >
-            <option value="">Todos los nombres</option>
-            {nombresUnicos.map((nombre) => (
-              <option key={nombre} value={nombre}>{nombre}</option>
-            ))}
-          </select>
-
-          <select
-            value={orden}
-            onChange={(e) => setOrden(e.target.value)}
-            className="select-filtro"
-          >
-            <option value="">Ordenar por...</option>
-            <option value="nombre">Nombre</option>
-            <option value="precio">Precio</option>
-          </select>
-        </div>
+        <input
+          type="text"
+          placeholder="Buscar por nombre..."
+          className="input-busqueda"
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+        />
       </section>
 
       <section className="productos-tabla">
@@ -198,31 +130,29 @@ function Productos() {
           <table className="tabla-productos">
             <thead>
               <tr>
-                <th>Código</th>
                 <th>Nombre</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
+                <th>Descripción</th>
                 <th>Peso (kg)</th>
-                <th>Volumen (m²)</th>
-                <th>Permisos</th>
+                <th>Volumen (m³)</th>
+                <th>Precio Unitario</th>
+                <th>Proveedor</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
               {productosFiltrados.map((prod) => (
                 <tr key={prod.id}>
-                  <td>{prod.codigo}</td>
                   <td>{prod.nombre}</td>
-                  <td>₡{prod.precio.toLocaleString()}</td>
-                  <td>{prod.cantidad}</td>
-                  <td>{prod.peso}</td>
-                  <td>{prod.volumen}</td>
-                  <td>{prod.permisosEspeciales.join(', ')}</td>
+                  <td>{prod.descripcion || '-'}</td>
+                  <td>{prod.peso || '-'}</td>
+                  <td>{prod.volumen || '-'}</td>
+                  <td>₡{prod.precioUnitario.toLocaleString()}</td>
+                  <td>{prod.idProveedor}</td>
                   <td>
                     <button className="btn-accion editar" onClick={() => abrirModal(prod)}>
                       <Edit size={16} />
                     </button>
-                    <button className="btn-accion eliminar" onClick={() => confirmarEliminar(prod)}>
+                    <button className="btn-accion eliminar" onClick={() => abrirModalEliminar(prod)}>
                       <Trash2 size={16} />
                     </button>
                   </td>
@@ -232,11 +162,12 @@ function Productos() {
           </table>
         ) : (
           <p style={{ textAlign: 'center', marginTop: '30px' }}>
-            No se encontraron productos.
+            No hay productos registrados.
           </p>
         )}
       </section>
 
+      {/* Modal Agregar/Editar */}
       {mostrarModal && (
         <div className="modal-overlay">
           <div className="modal">
@@ -246,36 +177,33 @@ function Productos() {
             </div>
             <form onSubmit={manejarEnvio}>
               <div className="modal-body">
-                <input name="codigo" placeholder="Código *" value={formulario.codigo} onChange={manejarCambio} />
-                <input name="nombre" placeholder="Nombre *" value={formulario.nombre} onChange={manejarCambio} />
-                <input name="precio" type="number" placeholder="Precio *" value={formulario.precio} onChange={manejarCambio} />
-                <input name="cantidad" type="number" placeholder="Cantidad" value={formulario.cantidad} onChange={manejarCambio} />
-                <input name="peso" type="number" placeholder="Peso (kg)" value={formulario.peso} onChange={manejarCambio} />
-                <input name="volumen" type="number" placeholder="Volumen (m²)" value={formulario.volumen} onChange={manejarCambio} />
-                <input name="permisosEspeciales" placeholder="Permisos especiales (separados por coma)" value={formulario.permisosEspeciales} onChange={manejarCambio} />
+                <input name="nombre" placeholder="Nombre del producto *" value={formulario.nombre} onChange={manejarCambio} />
+                <input name="descripcion" placeholder="Descripción (opcional)" value={formulario.descripcion} onChange={manejarCambio} />
+                <input name="peso" type="number" step="0.01" placeholder="Peso en kg (opcional)" value={formulario.peso} onChange={manejarCambio} />
+                <input name="volumen" type="number" step="0.01" placeholder="Volumen en m³ (opcional)" value={formulario.volumen} onChange={manejarCambio} />
+                <input name="precioUnitario" type="number" placeholder="Precio unitario *" value={formulario.precioUnitario} onChange={manejarCambio} />
+                <input name="idProveedor" placeholder="ID del proveedor *" value={formulario.idProveedor} onChange={manejarCambio} />
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn-cancelar" onClick={cerrarModal}>Cancelar</button>
-                <button type="submit" className="btn-agregar">{productoEnEdicion ? 'Guardar cambios' : 'Guardar producto'}</button>
+                <button type="submit" className="btn-agregar">
+                  {productoEnEdicion ? 'Guardar cambios' : 'Registrar producto'}
+                </button>
               </div>
             </form>
           </div>
         </div>
       )}
 
-      {productoAEliminar && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <div className="modal-header">
-              <h2>Confirmar eliminación</h2>
-              <button className="cerrar-modal" onClick={cancelarEliminar}>×</button>
-            </div>
-            <div className="modal-body">
-              <p>¿Estás seguro de que deseas eliminar el producto <strong>{productoAEliminar.nombre}</strong>?</p>
-            </div>
-            <div className="modal-footer">
-              <button className="btn-cancelar" onClick={cancelarEliminar}>Cancelar</button>
-              <button className="btn-agregar" onClick={eliminarProductoConfirmado}>Eliminar</button>
+      {/* Modal Confirmación de Eliminación */}
+      {mostrarModalEliminar && (
+        <div className="modal-eliminar">
+          <div className="modal-contenido">
+            <h2>¿Estás seguro?</h2>
+            <p>¿Deseas eliminar el producto <strong>{productoAEliminar.nombre}</strong>?</p>
+            <div className="modal-botones">
+              <button className="btn-cancelar" onClick={cancelarEliminacion}>Cancelar</button>
+              <button className="btn-confirmar" onClick={confirmarEliminacion}>Eliminar</button>
             </div>
           </div>
         </div>

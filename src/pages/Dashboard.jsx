@@ -1,30 +1,28 @@
 import React from 'react';
+import { NavLink, Outlet } from 'react-router-dom';
 import logo from '../assets/granittore.png';
 import '../styles/dashboard.css';
 
 function Dashboard() {
   return (
     <div className="dashboard-wrapper">
-      {/* Sidebar de navegación */}
       <aside className="sidebar">
         <div className="sidebar-header">
           <img src={logo} alt="Logo Granittore" className="sidebar-logo" />
-          
         </div>
         <nav className="sidebar-nav">
           <ul>
-            <li className="active">Inicio</li>
-            <li>Pedidos</li>
-            <li>Productos</li>
-            <li>Proveedores</li>
-            <li>Reportes</li>
-            <li>Historial</li>
-            <li>Costeo</li>
+            <li><NavLink to="/dashboard" end className={({ isActive }) => isActive ? 'active' : ''}>Inicio</NavLink></li>
+            <li><NavLink to="/dashboard/pedidos" className={({ isActive }) => isActive ? 'active' : ''}>Pedidos</NavLink></li>
+            <li><NavLink to="/dashboard/productos" className={({ isActive }) => isActive ? 'active' : ''}>Productos</NavLink></li>
+            <li><NavLink to="/dashboard/proveedores" className={({ isActive }) => isActive ? 'active' : ''}>Proveedores</NavLink></li>
+            <li><NavLink to="/dashboard/reportes" className={({ isActive }) => isActive ? 'active' : ''}>Reportes</NavLink></li>
+            <li><NavLink to="/dashboard/historial" className={({ isActive }) => isActive ? 'active' : ''}>Historial</NavLink></li>
+            <li><NavLink to="/dashboard/costeo" className={({ isActive }) => isActive ? 'active' : ''}>Costeo</NavLink></li>
           </ul>
         </nav>
       </aside>
 
-      {/* Área de contenido principal */}
       <main className="main-content">
         <header className="main-header">
           <div className="welcome-message">
@@ -33,12 +31,11 @@ function Dashboard() {
           </div>
           <div className="user-profile">
             <span className="user-initial">G</span>
-            {/* Aquí luego se puede agregar el nombre del usuario */}
           </div>
         </header>
 
         <section className="content">
-          <p>Este es tu panel principal. Aquí puedes visualizar el resumen general, estadísticas, alertas o accesos rápidos.</p>
+          <Outlet />
         </section>
       </main>
     </div>
