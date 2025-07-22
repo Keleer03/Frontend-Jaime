@@ -1,36 +1,39 @@
-import React, { useState } from 'react';
-import '../styles/proveedores.css';
-import { PlusCircle, Edit, Trash2 } from 'lucide-react';
+import React, { useState } from "react";
+import "../styles/proveedores.css";
+import { PlusCircle, Edit, Trash2 } from "lucide-react";
 
 const proveedoresEjemplo = [
   {
     id: 1,
-    nombre: 'Mármoles S.A.',
-    direccion: 'San José, Costa Rica',
-    telefono: '2222-3344',
-    correo: 'contacto@marmoles.co.cr'
+    nombre: "Mármoles S.A.",
+    direccion: "San José",
+    telefono: "2222-3344",
+    correo: "contacto@marmoles.co.cr",
+    pais: "Costa Rica",
   },
   {
     id: 2,
-    nombre: 'Decorstone Ltda.',
-    direccion: 'Heredia, Costa Rica',
-    telefono: '2233-4455',
-    correo: 'info@decorstone.com'
-  }
+    nombre: "Decorstone Ltda.",
+    direccion: "Heredia",
+    telefono: "2233-4455",
+    correo: "info@decorstone.com",
+    pais: "Costa Rica",
+  },
 ];
 
 function Proveedores() {
-  const [busqueda, setBusqueda] = useState('');
+  const [busqueda, setBusqueda] = useState("");
   const [mostrarModal, setMostrarModal] = useState(false);
   const [proveedorAEliminar, setProveedorAEliminar] = useState(null);
   const [modoEdicion, setModoEdicion] = useState(false);
   const [proveedorEditandoId, setProveedorEditandoId] = useState(null);
   const [proveedores, setProveedores] = useState(proveedoresEjemplo);
   const [formulario, setFormulario] = useState({
-    nombre: '',
-    direccion: '',
-    telefono: '',
-    correo: ''
+    nombre: "",
+    direccion: "",
+    telefono: "",
+    correo: "",
+    pais: "",
   });
 
   const proveedoresFiltrados = proveedores.filter((prov) =>
@@ -39,14 +42,26 @@ function Proveedores() {
 
   const abrirModal = () => {
     setModoEdicion(false);
-    setFormulario({ nombre: '', direccion: '', telefono: '', correo: '' });
+    setFormulario({
+      nombre: "",
+      direccion: "",
+      telefono: "",
+      correo: "",
+      pais: "",
+    });
     setMostrarModal(true);
   };
 
   const cerrarModal = () => {
     setMostrarModal(false);
     setModoEdicion(false);
-    setFormulario({ nombre: '', direccion: '', telefono: '', correo: '' });
+    setFormulario({
+      nombre: "",
+      direccion: "",
+      telefono: "",
+      correo: "",
+      pais: "",
+    });
   };
 
   const manejarCambio = (e) => {
@@ -56,19 +71,26 @@ function Proveedores() {
 
   const manejarEnvio = (e) => {
     e.preventDefault();
-    if (!formulario.nombre || !formulario.telefono || !formulario.correo) {
-      alert('Los campos Nombre, Teléfono y Correo son obligatorios.');
+    if (
+      !formulario.nombre ||
+      !formulario.telefono ||
+      !formulario.correo ||
+      !formulario.pais
+    ) {
+      alert("Los campos Nombre, Teléfono, Correo y País son obligatorios.");
       return;
     }
 
     if (modoEdicion) {
-      setProveedores(prev => prev.map(p =>
-        p.id === proveedorEditandoId ? { ...p, ...formulario } : p
-      ));
+      setProveedores((prev) =>
+        prev.map((p) =>
+          p.id === proveedorEditandoId ? { ...p, ...formulario } : p
+        )
+      );
     } else {
       const nuevoProveedor = {
         id: proveedores.length + 1,
-        ...formulario
+        ...formulario,
       };
       setProveedores([...proveedores, nuevoProveedor]);
     }
@@ -81,7 +103,9 @@ function Proveedores() {
   };
 
   const eliminarProveedorConfirmado = () => {
-    setProveedores(prev => prev.filter(p => p.id !== proveedorAEliminar.id));
+    setProveedores((prev) =>
+      prev.filter((p) => p.id !== proveedorAEliminar.id)
+    );
     setProveedorAEliminar(null);
   };
 
@@ -100,12 +124,15 @@ function Proveedores() {
     <div className="proveedores-wrapper">
       <header className="proveedores-header">
         <h1>Gestión de Proveedores</h1>
-        <p>Aquí puedes ver, agregar, editar o eliminar tus proveedores registrados.</p>
+        <p>
+          Aquí puedes ver, agregar, editar o eliminar tus proveedores
+          registrados.
+        </p>
       </header>
 
       <section className="proveedores-controls">
         <button className="btn-agregar" onClick={abrirModal}>
-          <PlusCircle size={18} style={{ marginRight: '8px' }} />
+          <PlusCircle size={18} style={{ marginRight: "8px" }} />
           Agregar proveedor
         </button>
 
@@ -127,6 +154,7 @@ function Proveedores() {
                 <th>Dirección</th>
                 <th>Teléfono</th>
                 <th>Correo</th>
+                <th>País</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -137,11 +165,18 @@ function Proveedores() {
                   <td>{prov.direccion}</td>
                   <td>{prov.telefono}</td>
                   <td>{prov.correo}</td>
+                  <td>{prov.pais}</td>
                   <td>
-                    <button className="btn-accion editar" onClick={() => manejarEditar(prov)}>
+                    <button
+                      className="btn-accion editar"
+                      onClick={() => manejarEditar(prov)}
+                    >
                       <Edit size={16} />
                     </button>
-                    <button className="btn-accion eliminar" onClick={() => confirmarEliminar(prov)}>
+                    <button
+                      className="btn-accion eliminar"
+                      onClick={() => confirmarEliminar(prov)}
+                    >
                       <Trash2 size={16} />
                     </button>
                   </td>
@@ -150,7 +185,7 @@ function Proveedores() {
             </tbody>
           </table>
         ) : (
-          <p style={{ textAlign: 'center', marginTop: '30px' }}>
+          <p style={{ textAlign: "center", marginTop: "30px" }}>
             No se encontraron proveedores.
           </p>
         )}
@@ -160,20 +195,67 @@ function Proveedores() {
         <div className="modal-overlay">
           <div className="modal">
             <div className="modal-header">
-              <h2>{modoEdicion ? 'Editar proveedor' : 'Agregar nuevo proveedor'}</h2>
-              <button className="cerrar-modal" onClick={cerrarModal}>×</button>
+              <h2>
+                {modoEdicion ? "Editar proveedor" : "Agregar nuevo proveedor"}
+              </h2>
+              <button className="cerrar-modal" onClick={cerrarModal}>
+                ×
+              </button>
             </div>
             <form onSubmit={manejarEnvio}>
               <div className="modal-body">
-                <input name="nombre" placeholder="Nombre *" value={formulario.nombre} onChange={manejarCambio} />
-                <input name="direccion" placeholder="Dirección" value={formulario.direccion} onChange={manejarCambio} />
-                <input name="telefono" placeholder="Teléfono *" value={formulario.telefono} onChange={manejarCambio} />
-                <input name="correo" type="email" placeholder="Correo *" value={formulario.correo} onChange={manejarCambio} />
+                <input
+                  name="nombre"
+                  placeholder="Nombre *"
+                  value={formulario.nombre}
+                  onChange={manejarCambio}
+                />
+                <input
+                  name="direccion"
+                  placeholder="Dirección"
+                  value={formulario.direccion}
+                  onChange={manejarCambio}
+                />
+                <input
+                  name="telefono"
+                  placeholder="Teléfono *"
+                  value={formulario.telefono}
+                  onChange={manejarCambio}
+                />
+                <input
+                  name="correo"
+                  type="email"
+                  placeholder="Correo *"
+                  value={formulario.correo}
+                  onChange={manejarCambio}
+                />
+                <select
+                  name="pais"
+                  value={formulario.pais}
+                  onChange={manejarCambio}
+                  required
+                  className={
+                    formulario.pais ? "select-normal" : "select-placeholder"
+                  }
+                >
+                  <option value="">Selecciona un país</option>
+                  <option value="Costa Rica">Costa Rica</option>
+                  <option value="México">México</option>
+                  <option value="Colombia">Colombia</option>
+                  <option value="Argentina">Argentina</option>
+                  <option value="Estados Unidos">Estados Unidos</option>
+                </select>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn-cancelar" onClick={cerrarModal}>Cancelar</button>
+                <button
+                  type="button"
+                  className="btn-cancelar"
+                  onClick={cerrarModal}
+                >
+                  Cancelar
+                </button>
                 <button type="submit" className="btn-agregar">
-                  {modoEdicion ? 'Guardar cambios' : 'Guardar proveedor'}
+                  {modoEdicion ? "Guardar cambios" : "Guardar proveedor"}
                 </button>
               </div>
             </form>
@@ -186,14 +268,26 @@ function Proveedores() {
           <div className="modal">
             <div className="modal-header">
               <h2>Confirmar eliminación</h2>
-              <button className="cerrar-modal" onClick={cancelarEliminar}>×</button>
+              <button className="cerrar-modal" onClick={cancelarEliminar}>
+                ×
+              </button>
             </div>
             <div className="modal-body">
-              <p>¿Estás seguro de que deseas eliminar el proveedor <strong>{proveedorAEliminar.nombre}</strong>?</p>
+              <p>
+                ¿Estás seguro de que deseas eliminar el proveedor{" "}
+                <strong>{proveedorAEliminar.nombre}</strong>?
+              </p>
             </div>
             <div className="modal-footer">
-              <button className="btn-cancelar" onClick={cancelarEliminar}>Cancelar</button>
-              <button className="btn-agregar" onClick={eliminarProveedorConfirmado}>Eliminar</button>
+              <button className="btn-cancelar" onClick={cancelarEliminar}>
+                Cancelar
+              </button>
+              <button
+                className="btn-agregar"
+                onClick={eliminarProveedorConfirmado}
+              >
+                Eliminar
+              </button>
             </div>
           </div>
         </div>

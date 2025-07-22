@@ -6,7 +6,7 @@
 
 .proveedores-header h1 {
   font-size: 28px;
-  color: #1976D2;
+  color: #1976d2;
   margin-bottom: 6px;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .input-busqueda:focus {
-  border-color: #1976D2;
+  border-color: #1976d2;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
   outline: none;
 }
@@ -55,7 +55,7 @@
 }
 
 .btn-agregar {
-  background-color: #1976D2;
+  background-color: #1976d2;
   color: #fff;
   border: none;
   padding: 10px 16px;
@@ -90,7 +90,7 @@
 }
 
 .tabla-proveedores thead {
-  background-color: #1976D2;
+  background-color: #1976d2;
   color: #fff;
 }
 
@@ -125,7 +125,7 @@
 
 .btn-accion.editar:hover {
   background-color: rgba(25, 118, 210, 0.1);
-  color: #1976D2;
+  color: #1976d2;
 }
 
 .btn-accion.eliminar:hover {
@@ -166,7 +166,7 @@
 
 .modal-header h2 {
   font-size: 22px;
-  color: #1976D2;
+  color: #1976d2;
 }
 
 .cerrar-modal {
@@ -198,7 +198,7 @@
 }
 
 .modal-body input:focus {
-  border-color: #1976D2;
+  border-color: #1976d2;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
   outline: none;
 }
@@ -224,4 +224,42 @@
 
 .btn-cancelar:hover {
   background-color: #c1c1c1;
+}
+
+.modal-body select {
+  padding: 10px 14px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+  cursor: pointer;
+  appearance: none;
+}
+
+.modal-body select:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
+  outline: none;
+}
+
+.select-placeholder {
+  color: #999;
+}
+
+.modal-body select {
+  position: relative;
+  padding-right: 30px; /* espacio para flecha */
+}
+
+.modal-body select::-ms-expand {
+  display: none; /* Quitar flecha default en IE */
+}
+
+.modal-body select {
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6H0z' fill='%23666'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px 6px;
 }
