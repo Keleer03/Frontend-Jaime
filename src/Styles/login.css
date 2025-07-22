@@ -9,12 +9,12 @@
 
 body {
   overflow-x: hidden;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
 }
 
 /* Wrapper general */
 .login-wrapper {
-  background: linear-gradient(135deg, #2196f3, #1976D2);
+  background: linear-gradient(135deg, #2196f3, #1976d2);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +24,7 @@ body {
 
 /* Columna izquierda */
 .login-left {
-  flex: 0 0 50%; 
+  flex: 0 0 50%;
   background: transparent;
   padding: 50px 30px 50px 40px;
   text-align: center;
@@ -79,7 +79,7 @@ body {
 .login-box h2 {
   text-align: center;
   font-size: 28px;
-  color: #1976D2;
+  color: #1976d2;
   font-weight: 700;
   margin-bottom: 12px;
 }
@@ -106,7 +106,8 @@ form {
 }
 
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="text"] {
   width: 100%;
   padding: 14px 16px;
   border: 1px solid #ccc;
@@ -117,7 +118,7 @@ input[type="password"] {
 }
 
 input:focus {
-  border-color: #1976D2;
+  border-color: #1976d2;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
   outline: none;
 }
@@ -138,7 +139,7 @@ input:focus {
 
 /* Botón */
 .login-button {
-  background-color: #1976D2;
+  background-color: #1976d2;
   color: #fff;
   padding: 14px;
   border: none;
@@ -147,7 +148,8 @@ input:focus {
   font-weight: 600;
   cursor: pointer;
   margin-top: 10px;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .login-button:hover {
@@ -171,9 +173,10 @@ input:focus {
 
 .footer-links a {
   font-size: 14px;
-  color: #1976D2;
+  color: #1976d2;
   text-decoration: none;
   transition: text-decoration 0.3s ease;
+  cursor: pointer;
 }
 
 .footer-links a:hover {
@@ -187,7 +190,7 @@ input:focus {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .login-container {
+  .login-wrapper {
     flex-direction: column;
   }
 
@@ -211,7 +214,7 @@ input:focus {
   .form-subtitle {
     text-align: center;
   }
-  
+
   .form-group label {
     text-align: left;
   }

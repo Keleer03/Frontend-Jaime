@@ -3,19 +3,26 @@ import "../styles/login.css";
 import logo from "../assets/granittore.png";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Register() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const validate = () => {
     const newErrors = {};
+    if (!name) newErrors.name = "Nombre requerido";
     if (!email) newErrors.email = "Correo requerido";
     else if (!/\S+@\S+\.\S+/.test(email))
       newErrors.email = "Formato de correo inválido";
     if (!password) newErrors.password = "Contraseña requerida";
+    if (password && password.length < 6)
+      newErrors.password = "Mínimo 6 caracteres";
+    if (password !== confirmPassword)
+      newErrors.confirmPassword = "Las contraseñas no coinciden";
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -23,8 +30,8 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      console.log({ email, password, remember });
-      navigate("/dashboard");
+      console.log({ name, email, password });
+      navigate("/dashboard"); // Cambiar si es necesario redirigir a otra página
     }
   };
 
@@ -32,13 +39,26 @@ function Login() {
     <div className="login-wrapper">
       <div className="login-left">
         <img src={logo} alt="Logo Granittore" className="logo" />
-        <h1>Bienvenido a Granittore</h1>
+        <h1>Regístrate en Granittore</h1>
       </div>
 
       <div className="login-right">
         <div className="login-box">
-          <h2>Iniciar sesión</h2>
+          <h2>Crear cuenta</h2>
           <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="name">Nombre completo</label>
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Tu nombre"
+                className={errors.name ? "input-error" : ""}
+              />
+              {errors.name && <span className="error-text">{errors.name}</span>}
+            </div>
+
             <div className="form-group">
               <label htmlFor="email">Correo electrónico</label>
               <input
@@ -69,24 +89,29 @@ function Login() {
               )}
             </div>
 
-            <div className="form-remember">
+            <div className="form-group">
+              <label htmlFor="confirmPassword">Confirmar contraseña</label>
               <input
-                type="checkbox"
-                id="remember"
-                checked={remember}
-                onChange={() => setRemember(!remember)}
+                type="password"
+                id="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="••••••••"
+                className={errors.confirmPassword ? "input-error" : ""}
               />
-              <label htmlFor="remember">Recordarme</label>
+              {errors.confirmPassword && (
+                <span className="error-text">{errors.confirmPassword}</span>
+              )}
             </div>
 
             <button type="submit" className="login-button">
-              Entrar
+              Registrarse
             </button>
           </form>
 
           <div className="footer-links">
-            <a onClick={() => navigate("/registro")}>
-              ¿No tienes una cuenta? Regístrate
+            <a onClick={() => navigate("/")} className="link-button">
+              ¿Ya tienes cuenta? Inicia sesión
             </a>
           </div>
         </div>
@@ -95,4 +120,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
