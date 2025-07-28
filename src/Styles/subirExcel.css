@@ -1,0 +1,36 @@
+.contenedor-excel {
+  padding: 2rem;
+  background-color: white;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contenedor-excel h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.contenedor-excel p {
+  margin-bottom: 1.5rem;
+  color: #555;
+}
+
+.contenedor-excel input[type="file"] {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.contenedor-excel button {
+  padding: 0.6rem 1.2rem;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contenedor-excel button:hover {
+  background-color: #1565c0;
+}

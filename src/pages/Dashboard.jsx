@@ -19,6 +19,7 @@ function Dashboard() {
             <li><NavLink to="/dashboard/reportes" className={({ isActive }) => isActive ? 'active' : ''}>Reportes</NavLink></li>
             <li><NavLink to="/dashboard/historial" className={({ isActive }) => isActive ? 'active' : ''}>Historial</NavLink></li>
             <li><NavLink to="/dashboard/costeo" className={({ isActive }) => isActive ? 'active' : ''}>Costeo</NavLink></li>
+            <li><NavLink to="/dashboard/subir-excel" className={({ isActive }) => isActive ? 'active' : ''}>Subir Excel</NavLink></li>
           </ul>
         </nav>
       </aside>
