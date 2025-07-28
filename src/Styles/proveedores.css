@@ -250,11 +250,11 @@
 
 .modal-body select {
   position: relative;
-  padding-right: 30px; /* espacio para flecha */
+  padding-right: 30px;
 }
 
 .modal-body select::-ms-expand {
-  display: none; /* Quitar flecha default en IE */
+  display: none;  
 }
 
 .modal-body select {
