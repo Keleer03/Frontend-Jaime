@@ -1,66 +1,65 @@
-import React, { useState } from "react";
-import "../styles/proveedores.css";
-import { PlusCircle, Edit, Trash2 } from "lucide-react";
-
-const proveedoresEjemplo = [
-  {
-    id: 1,
-    nombre: "Mármoles S.A.",
-    direccion: "San José",
-    telefono: "2222-3344",
-    correo: "contacto@marmoles.co.cr",
-    pais: "Costa Rica",
-  },
-  {
-    id: 2,
-    nombre: "Decorstone Ltda.",
-    direccion: "Heredia",
-    telefono: "2233-4455",
-    correo: "info@decorstone.com",
-    pais: "Costa Rica",
-  },
-];
+import React, { useState } from 'react';
+import '../styles/proveedores.css';
+import { PlusCircle, Edit, Trash2 } from 'lucide-react';
 
 function Proveedores() {
-  const [busqueda, setBusqueda] = useState("");
+  const [proveedores, setProveedores] = useState([]);
+  const [busqueda, setBusqueda] = useState('');
   const [mostrarModal, setMostrarModal] = useState(false);
+  const [proveedorEnEdicion, setProveedorEnEdicion] = useState(null);
   const [proveedorAEliminar, setProveedorAEliminar] = useState(null);
-  const [modoEdicion, setModoEdicion] = useState(false);
-  const [proveedorEditandoId, setProveedorEditandoId] = useState(null);
-  const [proveedores, setProveedores] = useState(proveedoresEjemplo);
+  const [mostrarModalEliminar, setMostrarModalEliminar] = useState(false);
+
+  const abrirModalEliminar = (proveedor) => {
+    setProveedorAEliminar(proveedor);
+    setMostrarModalEliminar(true);
+  };
+
+  const confirmarEliminacion = () => {
+    setProveedores(prev => prev.filter(p => p.id !== proveedorAEliminar.id));
+    setMostrarModalEliminar(false);
+    setProveedorAEliminar(null);
+  };
+
+  const cancelarEliminacion = () => {
+    setMostrarModalEliminar(false);
+    setProveedorAEliminar(null);
+  };
+
   const [formulario, setFormulario] = useState({
-    nombre: "",
-    direccion: "",
-    telefono: "",
-    correo: "",
-    pais: "",
+    nombre: '',
+    telefono: '',
+    correo: '',
+    direccion: '',
+    idPais: ''
   });
 
-  const proveedoresFiltrados = proveedores.filter((prov) =>
-    prov.nombre.toLowerCase().includes(busqueda.toLowerCase())
-  );
-
-  const abrirModal = () => {
-    setModoEdicion(false);
-    setFormulario({
-      nombre: "",
-      direccion: "",
-      telefono: "",
-      correo: "",
-      pais: "",
-    });
+  const abrirModal = (proveedor = null) => {
+    if (proveedor) {
+      setProveedorEnEdicion(proveedor);
+      setFormulario({ ...proveedor });
+    } else {
+      setProveedorEnEdicion(null);
+      setFormulario({
+        nombre: '',
+        telefono: '',
+        correo: '',
+        direccion: '',
+        idPais: ''
+      });
+    }
     setMostrarModal(true);
   };
 
   const cerrarModal = () => {
     setMostrarModal(false);
-    setModoEdicion(false);
+    setProveedorEnEdicion(null);
     setFormulario({
-      nombre: "",
-      direccion: "",
-      telefono: "",
-      correo: "",
-      pais: "",
+      nombre: '',
+      telefono: '',
+      correo: '',
+      direccion: '',
+      idPais: ''
     });
   };
 
@@ -71,68 +70,42 @@ function Proveedores() {
 
   const manejarEnvio = (e) => {
     e.preventDefault();
-    if (
-      !formulario.nombre ||
-      !formulario.telefono ||
-      !formulario.correo ||
-      !formulario.pais
-    ) {
-      alert("Los campos Nombre, Teléfono, Correo y País son obligatorios.");
+
+    if (!formulario.nombre || !formulario.telefono || !formulario.idPais) {
+      alert('Por favor completa los campos obligatorios: nombre, teléfono y país.');
       return;
     }
 
-    if (modoEdicion) {
-      setProveedores((prev) =>
-        prev.map((p) =>
-          p.id === proveedorEditandoId ? { ...p, ...formulario } : p
-        )
+    const nuevoProveedor = { ...formulario };
+
+    if (proveedorEnEdicion) {
+      setProveedores(prev =>
+        prev.map(p => p.id === proveedorEnEdicion.id ? { ...p, ...nuevoProveedor } : p)
       );
     } else {
-      const nuevoProveedor = {
-        id: proveedores.length + 1,
-        ...formulario,
-      };
-      setProveedores([...proveedores, nuevoProveedor]);
+      setProveedores(prev => [
+        ...prev,
+        { id: prev.length + 1, ...nuevoProveedor }
+      ]);
     }
 
     cerrarModal();
   };
 
-  const confirmarEliminar = (proveedor) => {
-    setProveedorAEliminar(proveedor);
-  };
-
-  const eliminarProveedorConfirmado = () => {
-    setProveedores((prev) =>
-      prev.filter((p) => p.id !== proveedorAEliminar.id)
-    );
-    setProveedorAEliminar(null);
-  };
-
-  const cancelarEliminar = () => {
-    setProveedorAEliminar(null);
-  };
-
-  const manejarEditar = (proveedor) => {
-    setFormulario({ ...proveedor });
-    setModoEdicion(true);
-    setProveedorEditandoId(proveedor.id);
-    setMostrarModal(true);
-  };
+  const proveedoresFiltrados = proveedores.filter(p =>
+    p.nombre.toLowerCase().includes(busqueda.toLowerCase())
+  );
 
   return (
-    <div className="proveedores-wrapper">
-      <header className="proveedores-header">
+    <div className="productos-wrapper">
+      <header className="productos-header">
         <h1>Gestión de Proveedores</h1>
-        <p>
-          Aquí puedes ver, agregar, editar o eliminar tus proveedores
-          registrados.
-        </p>
+        <p>Consulta, registra o modifica proveedores asociados.</p>
       </header>
 
-      <section className="proveedores-controls">
-        <button className="btn-agregar" onClick={abrirModal}>
-          <PlusCircle size={18} style={{ marginRight: "8px" }} />
+      <section className="productos-controls">
+        <button className="btn-agregar" onClick={() => abrirModal()}>
+          <PlusCircle size={18} style={{ marginRight: '8px' }} />
           Agregar proveedor
         </button>
 
@@ -145,15 +118,15 @@ function Proveedores() {
         />
       </section>
 
-      <section className="proveedores-tabla">
+      <section className="productos-tabla">
         {proveedoresFiltrados.length > 0 ? (
-          <table className="tabla-proveedores">
+          <table className="tabla-productos">
             <thead>
               <tr>
                 <th>Nombre</th>
-                <th>Dirección</th>
                 <th>Teléfono</th>
                 <th>Correo</th>
+                <th>Dirección</th>
                 <th>País</th>
                 <th>Acciones</th>
               </tr>
@@ -162,21 +135,15 @@ function Proveedores() {
               {proveedoresFiltrados.map((prov) => (
                 <tr key={prov.id}>
                   <td>{prov.nombre}</td>
-                  <td>{prov.direccion}</td>
                   <td>{prov.telefono}</td>
                   <td>{prov.correo}</td>
-                  <td>{prov.pais}</td>
+                  <td>{prov.direccion}</td>
+                  <td>{prov.idPais}</td>
                   <td>
-                    <button
-                      className="btn-accion editar"
-                      onClick={() => manejarEditar(prov)}
-                    >
+                    <button className="btn-accion editar" onClick={() => abrirModal(prov)}>
                       <Edit size={16} />
                     </button>
-                    <button
-                      className="btn-accion eliminar"
-                      onClick={() => confirmarEliminar(prov)}
-                    >
+                    <button className="btn-accion eliminar" onClick={() => abrirModalEliminar(prov)}>
                       <Trash2 size={16} />
                     </button>
                   </td>
@@ -185,8 +152,8 @@ function Proveedores() {
             </tbody>
           </table>
         ) : (
-          <p style={{ textAlign: "center", marginTop: "30px" }}>
-            No se encontraron proveedores.
+          <p style={{ textAlign: 'center', marginTop: '30px' }}>
+            No hay proveedores registrados.
           </p>
         )}
       </section>
@@ -195,67 +162,21 @@ function Proveedores() {
         <div className="modal-overlay">
           <div className="modal">
             <div className="modal-header">
-              <h2>
-                {modoEdicion ? "Editar proveedor" : "Agregar nuevo proveedor"}
-              </h2>
-              <button className="cerrar-modal" onClick={cerrarModal}>
-                ×
-              </button>
+              <h2>{proveedorEnEdicion ? 'Editar proveedor' : 'Agregar nuevo proveedor'}</h2>
+              <button className="cerrar-modal" onClick={cerrarModal}>×</button>
             </div>
             <form onSubmit={manejarEnvio}>
               <div className="modal-body">
-                <input
-                  name="nombre"
-                  placeholder="Nombre *"
-                  value={formulario.nombre}
-                  onChange={manejarCambio}
-                />
-                <input
-                  name="direccion"
-                  placeholder="Dirección"
-                  value={formulario.direccion}
-                  onChange={manejarCambio}
-                />
-                <input
-                  name="telefono"
-                  placeholder="Teléfono *"
-                  value={formulario.telefono}
-                  onChange={manejarCambio}
-                />
-                <input
-                  name="correo"
-                  type="email"
-                  placeholder="Correo *"
-                  value={formulario.correo}
-                  onChange={manejarCambio}
-                />
-                <select
-                  name="pais"
-                  value={formulario.pais}
-                  onChange={manejarCambio}
-                  required
-                  className={
-                    formulario.pais ? "select-normal" : "select-placeholder"
-                  }
-                >
-                  <option value="">Selecciona un país</option>
-                  <option value="Costa Rica">Costa Rica</option>
-                  <option value="México">México</option>
-                  <option value="Colombia">Colombia</option>
-                  <option value="Argentina">Argentina</option>
-                  <option value="Estados Unidos">Estados Unidos</option>
-                </select>
+                <input name="nombre" placeholder="Nombre del proveedor *" value={formulario.nombre} onChange={manejarCambio} />
+                <input name="telefono" placeholder="Teléfono *" value={formulario.telefono} onChange={manejarCambio} />
+                <input name="correo" placeholder="Correo electrónico" value={formulario.correo} onChange={manejarCambio} />
+                <input name="direccion" placeholder="Dirección" value={formulario.direccion} onChange={manejarCambio} />
+                <input name="idPais" placeholder="ID del país *" value={formulario.idPais} onChange={manejarCambio} />
               </div>
               <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn-cancelar"
-                  onClick={cerrarModal}
-                >
-                  Cancelar
-                </button>
+                <button type="button" className="btn-cancelar" onClick={cerrarModal}>Cancelar</button>
                 <button type="submit" className="btn-agregar">
-                  {modoEdicion ? "Guardar cambios" : "Guardar proveedor"}
+                  {proveedorEnEdicion ? 'Guardar cambios' : 'Registrar proveedor'}
                 </button>
               </div>
             </form>
@@ -263,31 +184,14 @@ function Proveedores() {
         </div>
       )}
 
-      {proveedorAEliminar && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <div className="modal-header">
-              <h2>Confirmar eliminación</h2>
-              <button className="cerrar-modal" onClick={cancelarEliminar}>
-                ×
-              </button>
-            </div>
-            <div className="modal-body">
-              <p>
-                ¿Estás seguro de que deseas eliminar el proveedor{" "}
-                <strong>{proveedorAEliminar.nombre}</strong>?
-              </p>
-            </div>
-            <div className="modal-footer">
-              <button className="btn-cancelar" onClick={cancelarEliminar}>
-                Cancelar
-              </button>
-              <button
-                className="btn-agregar"
-                onClick={eliminarProveedorConfirmado}
-              >
-                Eliminar
-              </button>
+      {mostrarModalEliminar && (
+        <div className="modal-eliminar">
+          <div className="modal-contenido">
+            <h2>¿Estás seguro?</h2>
+            <p>¿Deseas eliminar al proveedor <strong>{proveedorAEliminar.nombre}</strong>?</p>
+            <div className="modal-botones">
+              <button className="btn-cancelar" onClick={cancelarEliminacion}>Cancelar</button>
+              <button className="btn-confirmar" onClick={confirmarEliminacion}>Eliminar</button>
             </div>
           </div>
         </div>

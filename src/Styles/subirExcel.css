@@ -1,36 +1,74 @@
-.contenedor-excel {
+.subirexcel-wrapper {
   padding: 2rem;
-  background-color: white;
-  border-radius: 10px;
-  max-width: 600px;
-  margin: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 12px;
+  max-width: 700px;
+  margin:  auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 }
 
-.contenedor-excel h2 {
+.subirexcel-wrapper h2 {
+  font-size: 1.5rem;
   margin-bottom: 1rem;
   color: #333;
 }
 
-.contenedor-excel p {
+.descripcion {
+  font-size: 0.95rem;
+  color: #666;
   margin-bottom: 1.5rem;
-  color: #555;
 }
 
-.contenedor-excel input[type="file"] {
-  display: block;
+.formulario-subida input[type="file"] {
   margin-bottom: 1rem;
 }
 
-.contenedor-excel button {
+.archivo-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.boton-quitar {
+  background-color: #e53935;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.boton-quitar:hover {
+  background-color: #c62828;
+}
+
+.boton-subir-contenedor {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 1rem;
+}
+
+.boton-subir {
   padding: 0.6rem 1.2rem;
   background-color: #1976d2;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-.contenedor-excel button:hover {
+.boton-subir:hover {
   background-color: #1565c0;
+}
+
+.mensaje-subida {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #2e7d32;
 }
