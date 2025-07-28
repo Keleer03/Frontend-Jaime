@@ -1,0 +1,356 @@
+.costeo-wrapper {
+  padding: 30px;
+  background: #f4f6f8;
+  min-height: 100vh;
+}
+
+.costeo-header h1 {
+  font-size: 28px;
+  color: #1976d2;
+  margin-bottom: 6px;
+}
+
+.costeo-header p {
+  font-size: 16px;
+  color: #555;
+}
+
+.costeo-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.input-busqueda {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 280px;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-busqueda:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+  outline: none;
+}
+
+.btn-agregar {
+  background-color: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  font-size: 15px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-agregar:hover {
+  background-color: #1565c0;
+  transform: scale(1.02);
+}
+
+.btn-agregar-linea {
+  background-color: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.btn-agregar-linea:hover {
+  background-color: #1565c0;
+}
+
+.costeo-tabla {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.tabla-costeos {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.tabla-costeos thead {
+  background-color: #1976d2;
+  color: #fff;
+}
+
+.tabla-costeos th,
+.tabla-costeos td {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 15px;
+}
+
+.tabla-costeos tbody tr:nth-child(even) {
+  background-color: #f4f6f8;
+}
+
+.tabla-costeos tbody tr:hover {
+  background-color: #e3f2fd;
+}
+
+.tabla-costeos td {
+  color: #333;
+}
+
+.btn-accion {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 8px;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.btn-accion.editar:hover {
+  background-color: rgba(25, 118, 210, 0.1);
+  color: #1976d2;
+}
+
+.btn-accion.eliminar:hover {
+  background-color: rgba(211, 47, 47, 0.1);
+  color: #d32f2f;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 800px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #eee;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  font-size: 22px;
+  color: #1976d2;
+}
+
+.cerrar-modal {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #777;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.cerrar-modal:hover {
+  color: #000;
+}
+
+.modal-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.modal-body input,
+.modal-body select {
+  padding: 10px 14px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal-body input:focus,
+.modal-body select:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
+  outline: none;
+}
+
+.modal-body input:optional,
+.modal-body select:optional {
+  background-color: #f9f9f9;
+  border-color: #ccc;
+}
+
+.modal-body input[name="numeroPedido"],
+.modal-body input[name="fechaArribo"],
+.modal-body input[name="costoFabrica"],
+.modal-body input[name="numeroFactura"],
+.modal-body input[name="cantidad"] {
+  background-color: #e3f2fd;
+  border-color: #90caf9;
+}
+
+.modal-body .flex {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-body label {
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap;
+}
+
+.modal-body .flex input[name="fechaArribo"] {
+  flex: 1;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-cancelar {
+  background-color: #ddd;
+  color: #333;
+  border: none;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-cancelar:hover {
+  background-color: #c1c1c1;
+}
+
+.modal-eliminar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-contenido {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  animation: aparecer 0.3s ease-out;
+}
+
+.modal-contenido h2 {
+  margin-bottom: 10px;
+  color: #cc0000;
+}
+
+.modal-botones {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.btn-cancelar,
+.btn-confirmar {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-cancelar {
+  background-color: #ccc;
+  color: #333;
+}
+
+.btn-confirmar {
+  background-color: #cc0000;
+  color: white;
+}
+
+.linea-costeo-section {
+  margin-top: 20px;
+}
+
+.linea-costeo-section h3 {
+  font-size: 18px;
+  color: #1976d2;
+  margin-bottom: 16px;
+}
+
+.linea-costeo-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.linea-costeo-table th,
+.linea-costeo-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.linea-costeo-table th {
+  background-color: #1976d2;
+  color: white;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
