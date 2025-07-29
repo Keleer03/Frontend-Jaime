@@ -59,15 +59,22 @@
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.tabla-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto; /* Barra de desplazamiento horizontal */
+  -webkit-overflow-scrolling: touch; /* Suavizar desplazamiento en móviles */
+  border-radius: 12px; /* Mantener borde redondeado */
 }
 
 .tabla-historial {
   width: 100%;
   border-collapse: collapse;
   background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  table-layout: fixed;
+  table-layout: auto; /* Ajustar columnas dinámicamente */
+  min-width: 1500px; /* Ancho mínimo amplio para cotizaciones */
 }
 
 .tabla-historial thead {
@@ -80,6 +87,15 @@
   padding: 14px 16px;
   text-align: left;
   font-size: 15px;
+  white-space: nowrap; /* Prevenir que el texto se rompa */
+  overflow: hidden; /* Ocultar texto que exceda */
+  text-overflow: ellipsis; /* Mostrar "..." si el texto es demasiado largo */
+}
+
+.tabla-historial th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .tabla-historial tbody tr:nth-child(even) {
@@ -98,14 +114,4 @@
   text-align: center;
   margin-top: 30px;
   color: #666;
-}
-
-.tabla-wrapper {
-  width: 100%;
-  overflow-x: auto;
-}
-
-.scrollable .tabla-historial {
-  min-width: 1200px;
-  display: block;
 }

@@ -18,28 +18,22 @@ export default function Pedidos() {
   const [pedidos, setPedidos] = useState([]);
   const [mostrarModal, setMostrarModal] = useState(false);
   const [confirmarEliminacion, setConfirmarEliminacion] = useState(null);
+  const [mostrarError, setMostrarError] = useState(false);
 
   const [nuevoPedido, setNuevoPedido] = useState({
     cliente: '',
-    productos: [crearProductoVacio()],
+    productos: [{ idProducto: '', descripcion: '', proveedor: '', cantidad: '', unidades: '', costoUnitario: '', total: '' }],
   });
 
-  function crearProductoVacio() {
-    return {
-      idProducto: '',
-      descripcion: '',
-      proveedor: '',
-      cantidad: '',
-      unidades: '',
-      costoUnitario: '',
-      total: '',
-    };
-  }
+  const abrirModal = () => {
+    setNuevoPedido({ cliente: '', productos: [{ idProducto: '', descripcion: '', proveedor: '', cantidad: '', unidades: '', costoUnitario: '', total: '' }] });
+    setMostrarModal(true);
+  };
 
   const agregarProducto = () => {
-    setNuevoPedido((prev) => ({
+    setNuevoPedido(prev => ({
       ...prev,
-      productos: [...prev.productos, crearProductoVacio()],
+      productos: [...prev.productos, { idProducto: '', descripcion: '', proveedor: '', cantidad: '', unidades: '', costoUnitario: '', total: '' }],
     }));
   };
 
@@ -62,23 +56,37 @@ export default function Pedidos() {
   const eliminarProducto = (index) => {
     const nuevosProductos = [...nuevoPedido.productos];
     nuevosProductos.splice(index, 1);
-    setNuevoPedido({ ...nuevoPedido, productos: nuevosProductos });
+    setNuevoPedido({ ...nuevoPedido, productos: nuevosProductos.length ? nuevosProductos : [{ idProducto: '', descripcion: '', proveedor: '', cantidad: '', unidades: '', costoUnitario: '', total: '' }] });
   };
 
   const guardarPedido = () => {
     if (!nuevoPedido.cliente.trim()) {
-      alert('Por favor ingresa el nombre del cliente.');
+      setMostrarError('Por favor ingresa el nombre del cliente.');
+      return;
+    }
+
+    const todosValidos = nuevoPedido.productos.every(p => 
+      p.idProducto && p.descripcion && p.proveedor && p.cantidad && p.unidades && p.costoUnitario
+    );
+    if (!todosValidos) {
+      setMostrarError('Todos los campos de los productos son obligatorios.');
       return;
     }
 
     const nuevo = {
       ...nuevoPedido,
       numeroOrden: pedidos.length + 1,
+      productos: nuevoPedido.productos.map(p => ({
+        ...p,
+        cantidad: parseFloat(p.cantidad),
+        costoUnitario: parseFloat(p.costoUnitario),
+        total: parseFloat(p.total),
+      })),
     };
 
     setPedidos([...pedidos, nuevo]);
-    setNuevoPedido({ cliente: '', productos: [crearProductoVacio()] });
     setMostrarModal(false);
+    setNuevoPedido({ cliente: '', productos: [{ idProducto: '', descripcion: '', proveedor: '', cantidad: '', unidades: '', costoUnitario: '', total: '' }] });
   };
 
   const confirmarEliminarPedido = (index) => {
@@ -92,6 +100,10 @@ export default function Pedidos() {
     setConfirmarEliminacion(null);
   };
 
+  const cerrarError = () => {
+    setMostrarError(false);
+  };
+
   return (
     <div className="pedidos-wrapper">
       <header className="pedidos-header">
@@ -99,7 +111,7 @@ export default function Pedidos() {
         <p>Registra nuevos pedidos y revisa el historial.</p>
       </header>
 
-      <button className="btn-agregar-prod" onClick={() => setMostrarModal(true)}>
+      <button className="btn-agregar-prod" onClick={abrirModal}>
         <PlusCircle size={18} style={{ marginRight: '8px' }} />
         Nuevo pedido
       </button>
@@ -152,72 +164,83 @@ export default function Pedidos() {
                   placeholder="Nombre del cliente"
                   value={nuevoPedido.cliente}
                   onChange={(e) => setNuevoPedido({ ...nuevoPedido, cliente: e.target.value })}
+                  required
                 />
               </div>
 
-              {nuevoPedido.productos.map((prod, i) => (
-                <div key={i} className="producto-linea">
-                  <select
-                    value={prod.idProducto}
-                    onChange={(e) => {
-                      const selectedId = e.target.value;
-                      const prodSeleccionado = productosEjemplo.find(p => p.id === selectedId);
-                      actualizarProducto(i, 'idProducto', selectedId);
-                      actualizarProducto(i, 'descripcion', prodSeleccionado?.nombre || '');
-                    }}
-                  >
-                    <option value="">Seleccione producto</option>
-                    {productosEjemplo.map((p) => (
-                      <option key={p.id} value={p.id}>{p.nombre}</option>
-                    ))}
-                  </select>
-
-                  <select
-                    value={prod.proveedor}
-                    onChange={(e) => actualizarProducto(i, 'proveedor', e.target.value)}
-                  >
-                    <option value="">Seleccione proveedor</option>
-                    {proveedoresEjemplo.map((prov) => (
-                      <option key={prov.id} value={prov.nombre}>{prov.nombre}</option>
-                    ))}
-                  </select>
-
-                  <div className="grupo-cantidad">
-                    <input
-                      type="text"
-                      placeholder="Cantidad"
-                      value={prod.cantidad}
-                      onChange={(e) => actualizarProducto(i, 'cantidad', e.target.value)}
-                    />
-                    <input
-                      type="text"
-                      placeholder="Unidades"
-                      value={prod.unidades}
-                      onChange={(e) => actualizarProducto(i, 'unidades', e.target.value)}
-                    />
-                    <input
-                      type="text"
-                      placeholder="Costo unitario (USD)"
-                      value={prod.costoUnitario}
-                      onChange={(e) => actualizarProducto(i, 'costoUnitario', e.target.value)}
-                    />
-                  </div>
-
-                  {nuevoPedido.productos.length > 1 && (
-                    <button
-                      type="button"
-                      className="btn-eliminar-prod"
-                      onClick={() => eliminarProducto(i)}
-                      title="Eliminar producto"
+              <div className="productos-fichas">
+                {nuevoPedido.productos.map((prod, i) => (
+                  <div key={i} className="producto-ficha">
+                    <select
+                      value={prod.idProducto}
+                      onChange={(e) => {
+                        const selectedId = e.target.value;
+                        const prodSeleccionado = productosEjemplo.find(p => p.id === selectedId);
+                        actualizarProducto(i, 'idProducto', selectedId);
+                        actualizarProducto(i, 'descripcion', prodSeleccionado?.nombre || '');
+                      }}
+                      required
                     >
-                      ×
-                    </button>
-                  )}
-                </div>
-              ))}
+                      <option value="">Seleccione producto</option>
+                      {productosEjemplo.map((p) => (
+                        <option key={p.id} value={p.id}>{p.nombre}</option>
+                      ))}
+                    </select>
+
+                    <select
+                      value={prod.proveedor}
+                      onChange={(e) => actualizarProducto(i, 'proveedor', e.target.value)}
+                      required
+                    >
+                      <option value="">Seleccione proveedor</option>
+                      {proveedoresEjemplo.map((prov) => (
+                        <option key={prov.id} value={prov.nombre}>{prov.nombre}</option>
+                      ))}
+                    </select>
+
+                    <div className="grupo-cantidad">
+                      <input
+                        type="number"
+                        step="0.01"
+                        placeholder="Cantidad"
+                        value={prod.cantidad}
+                        onChange={(e) => actualizarProducto(i, 'cantidad', e.target.value)}
+                        required
+                      />
+                      <input
+                        type="text"
+                        placeholder="Unidades"
+                        value={prod.unidades}
+                        onChange={(e) => actualizarProducto(i, 'unidades', e.target.value)}
+                        required
+                      />
+                      <input
+                        type="number"
+                        step="0.01"
+                        placeholder="Costo unitario (USD)"
+                        value={prod.costoUnitario}
+                        onChange={(e) => actualizarProducto(i, 'costoUnitario', e.target.value)}
+                        required
+                      />
+                    </div>
+
+                    {nuevoPedido.productos.length > 1 && (
+                      <button
+                        type="button"
+                        className="btn-eliminar-prod"
+                        onClick={() => eliminarProducto(i)}
+                        title="Eliminar producto"
+                      >
+                        ×
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
 
               <div className="botones-pedido">
                 <button type="button" className="btn-agregar-prod" onClick={agregarProducto}>
+                  <PlusCircle size={18} style={{ marginRight: '8px' }} />
                   Agregar producto
                 </button>
                 <button type="button" className="btn-guardar-pedido" onClick={guardarPedido}>
@@ -240,6 +263,20 @@ export default function Pedidos() {
               </button>
               <button className="btn-eliminar-pedido" onClick={eliminarPedido}>
                 Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {mostrarError && (
+        <div className="modal-overlay">
+          <div className="modal confirmacion">
+            <h3>Error</h3>
+            <p>{mostrarError}</p>
+            <div className="botones-pedido">
+              <button className="btn-agregar-prod" onClick={cerrarError}>
+                Aceptar
               </button>
             </div>
           </div>

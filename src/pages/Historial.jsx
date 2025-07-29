@@ -93,7 +93,7 @@ function Historial() {
     );
 
     return (
-      <div className={`tabla-wrapper ${tipo === 'cotizaciones' ? 'scrollable' : ''}`}>
+      <div className="tabla-scroll-wrapper">
         <table className="tabla-historial">
           <thead>
             <tr>
