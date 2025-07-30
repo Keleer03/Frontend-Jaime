@@ -1,0 +1,101 @@
+.reporte-wrapper {
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.filtros-section {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.input-busqueda,
+.select-filtro {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 200px;
+}
+
+.seleccion-section {
+  margin-bottom: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.seleccion-section h2 {
+  color: #1976D2;
+  margin-bottom: 10px;
+}
+
+.seleccion-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.seleccion-section li {
+  margin-bottom: 5px;
+  padding: 5px;
+  border-bottom: 1px solid #eee;
+}
+
+.filtros-section button {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #1976d2;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.filtros-section button:hover {
+  background-color: #1565c0;
+}
+
+.filtros-section button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.tabla-contenedor {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tabla-reporte {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  min-width: 1500px;
+}
+
+.tabla-reporte th,
+.tabla-reporte td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tabla-reporte th {
+  background-color: #f2f2f2;
+  font-weight: 600;
+  color: #333;
+}
+
+.tabla-reporte tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
