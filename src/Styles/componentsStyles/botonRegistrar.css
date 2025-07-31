@@ -1,0 +1,15 @@
+.btn-registrar {
+  background-color: #1976D2;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-registrar:hover {
+  background-color: #1565c0;
+}

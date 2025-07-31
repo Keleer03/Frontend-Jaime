@@ -1,0 +1,15 @@
+.btn-cancelar {
+  background-color: #ddd;
+  color: #333;
+  border: none;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-cancelar:hover {
+  background-color: #c1c1c1;
+}

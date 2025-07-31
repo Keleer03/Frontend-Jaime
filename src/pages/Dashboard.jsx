@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import logo from '../assets/granittore.png';
-import '../styles/dashboard.css';
+import '../Styles/dashboard.css';
 
 function Dashboard() {
   return (
@@ -23,7 +23,6 @@ function Dashboard() {
           </ul>
         </nav>
       </aside>
-
       <main className="main-content">
         <header className="main-header">
           <div className="welcome-message">
@@ -34,7 +33,6 @@ function Dashboard() {
             <span className="user-initial">G</span>
           </div>
         </header>
-
         <section className="content">
           <Outlet />
         </section>
