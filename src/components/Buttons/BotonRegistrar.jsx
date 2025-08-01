@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../Styles/componentsStyles/BotonRegistrar.css';
+import '../../Styles/componentsStyles/botonRegistrar.css';
 
 function BotonRegistrar({ onClick, label = 'Registrar', type = 'button' }) {
   return (

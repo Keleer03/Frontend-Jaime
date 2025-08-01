@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../Styles/componentsStyles/BotonCancelar.css';
+import '../../Styles/componentsStyles/botonCancelar.css';
 
 function BotonCancelar({ onClick, label = 'Cancelar' }) {
   return (

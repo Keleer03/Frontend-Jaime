@@ -16,6 +16,7 @@ import Costeo from "./pages/Costeo";
 import DashboardHome from "./pages/DashboardHome";
 import Registro from "./pages/Registro";
 import SubirExcel from "./pages/SubirExcel";
+import Notificaciones from "./Pages/Notificaciones";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="reportes" element={<Reportes />} />
           <Route path="historial" element={<Historial />} />
           <Route path="costeo" element={<Costeo />} />
+          <Route path="notificaciones" element={<Notificaciones />} />
           <Route path="subir-excel" element={<SubirExcel />} />
 
         </Route>

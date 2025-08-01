@@ -1,73 +1,108 @@
-.modal-overlay {
+.mensaje-modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   z-index: 1000;
 }
 
-.modal-eliminar {
-  background: #fff;
-  padding: 30px;
+.mensaje-modal {
+  background: #fdfdfd;
   border-radius: 16px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  padding: 30px 24px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
   text-align: center;
-  animation: aparecer 0.3s ease-out;
+  position: relative;
+  width: 90%;
+  max-width: 420px;
+  transition: all 0.3s ease;
 }
 
-.modal-header {
+.mensaje-modal.animated {
+  animation: bounceIn 0.35s ease;
+}
+
+.mensaje-modal-icon {
+  margin-bottom: 16px;
+  animation: pulse 1.5s infinite;
+}
+
+.mensaje-modal-title {
+  font-size: 1.6rem;
+  color: #2c3e50;
+  margin-bottom: 12px;
+}
+
+.mensaje-modal-text {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.mensaje-modal-footer {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 8px;
 }
 
-.modal-header h2 {
-  font-size: 22px;
-  color: #cc0000;
-}
-
-.cerrar-modal {
+.mensaje-close-button {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 1.4rem;
   background: none;
   border: none;
-  font-size: 22px;
-  color: #777;
+  color: #aaa;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: color 0.2s;
 }
 
-.cerrar-modal:hover {
-  color: #000;
+.mensaje-close-button:hover {
+  color: #e74c3c;
 }
 
-.modal-body {
-  margin-bottom: 20px;
-}
-
-.modal-body p {
-  font-size: 16px;
-  color: #333;
-}
-
-.modal-footer {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-@keyframes aparecer {
-  from {
+/* Animaciones */
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.9);
     opacity: 0;
-    transform: translateY(-20px);
   }
-  to {
+  60% {
+    transform: scale(1.05);
     opacity: 1;
-    transform: translateY(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .mensaje-modal {
+    padding: 20px;
+  }
+
+  .mensaje-modal-title {
+    font-size: 1.4rem;
+  }
+
+  .mensaje-modal-footer {
+    flex-direction: column;
   }
 }

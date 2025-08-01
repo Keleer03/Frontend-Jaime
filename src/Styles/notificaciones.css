@@ -1,0 +1,65 @@
+.notificaciones-wrapper {
+  padding: 30px;
+  background-color: #f4f6f8;
+}
+
+.filtro {
+  margin-bottom: 20px;
+}
+
+.lista-notificaciones {
+  list-style: none;
+  padding: 0;
+}
+
+.notificacion-card {
+  background-color: #fff;
+  border-left: 6px solid #bbb;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.notificacion-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.pedido-header {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.detalle-linea {
+  font-size: 0.95em;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.detalle-linea span {
+  margin-right: 10px;
+}
+
+.mensaje {
+  font-size: 0.95em;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-left: 3px solid #888;
+  border-radius: 4px;
+  color: #444;
+}
+
+/* Colores según tipo */
+.notificacion-card.nota {
+  border-left-color: #ff9800;
+}
+.notificacion-card.recordatorio {
+  border-left-color: #2196f3;
+}
+.notificacion-card.comentario {
+  border-left-color: #4caf50;
+}

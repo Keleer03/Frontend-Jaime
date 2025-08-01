@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/login.css";
-import logo from "../assets/granittore.png";
+import logo from "../assets/vadibarot.png";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -32,7 +32,7 @@ function Login() {
     <div className="login-wrapper">
       <div className="login-left">
         <img src={logo} alt="Logo Granittore" className="logo" />
-        <h1>Bienvenido a Granittore</h1>
+        <h1>Bienvenido al sistema Vadibarot</h1>
       </div>
 
       <div className="login-right">

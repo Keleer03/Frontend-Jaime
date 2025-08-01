@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import logo from '../assets/granittore.png';
+import logo from '../assets/vadibarot.png';
 import '../Styles/dashboard.css';
 
 function Dashboard() {
@@ -19,6 +19,7 @@ function Dashboard() {
             <li><NavLink to="/dashboard/reportes" className={({ isActive }) => isActive ? 'active' : ''}>Reportes</NavLink></li>
             <li><NavLink to="/dashboard/historial" className={({ isActive }) => isActive ? 'active' : ''}>Historial</NavLink></li>
             <li><NavLink to="/dashboard/costeo" className={({ isActive }) => isActive ? 'active' : ''}>Cótiza</NavLink></li>
+            <li><NavLink to="/dashboard/notificaciones" className={({ isActive }) => isActive ? 'active' : ''}>Notificaciones</NavLink></li>
             <li><NavLink to="/dashboard/subir-excel" className={({ isActive }) => isActive ? 'active' : ''}>Subir Excel</NavLink></li>
           </ul>
         </nav>
