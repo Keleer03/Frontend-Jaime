@@ -3,7 +3,7 @@ import '../styles/notificaciones.css';
 
 const Notificaciones = () => {
   const [notificaciones, setNotificaciones] = useState([]);
-  const [tipoFiltro, setTipoFiltro] = useState('Todas');
+  const [busquedaPedido, setBusquedaPedido] = useState('');
 
   useEffect(() => {
     const datosEjemplo = [
@@ -38,22 +38,24 @@ const Notificaciones = () => {
     setNotificaciones(datosEjemplo);
   }, []);
 
-  const notificacionesFiltradas = tipoFiltro === 'Todas'
-    ? notificaciones
-    : notificaciones.filter(n => n.tipo === tipoFiltro);
+  // Filtrar las notificaciones por el número de pedido ingresado
+  const notificacionesFiltradas = notificaciones.filter(n =>
+    n.pedido.toLowerCase().includes(busquedaPedido.toLowerCase())
+  );
 
   return (
     <div className="notificaciones-wrapper">
       <h2>Historial de Notificaciones</h2>
 
       <div className="filtro">
-        <label htmlFor="tipo">Filtrar por tipo:</label>
-        <select id="tipo" value={tipoFiltro} onChange={(e) => setTipoFiltro(e.target.value)}>
-          <option value="Todas">Todas</option>
-          <option value="Nota">Nota</option>
-          <option value="Recordatorio">Recordatorio</option>
-          <option value="Comentario">Comentario</option>
-        </select>
+        <label htmlFor="pedido">Buscar por número de pedido:</label>
+        <input
+          id="pedido"
+          type="text"
+          placeholder="Buscar por número de pedido..."
+          value={busquedaPedido}
+          onChange={(e) => setBusquedaPedido(e.target.value)}
+        />
       </div>
 
       <ul className="lista-notificaciones">
