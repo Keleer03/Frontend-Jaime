@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/login.css";
-import logo from "../assets/granittore.png";
+import logo from "../assets/vadibarot.png";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
