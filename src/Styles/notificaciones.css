@@ -1,6 +1,13 @@
 .notificaciones-wrapper {
   padding: 30px;
-  background-color: #f4f6f8;
+  background: #f4f6f8;
+  min-height: 100vh;
+}
+
+.notificaciones-header h2 {
+  font-size: 28px;
+  color: #1976d2;
+  margin-bottom: 6px;
 }
 
 .filtro {
@@ -18,13 +25,13 @@
   border-radius: 6px;
   padding: 15px;
   margin-bottom: 15px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
 
 .notificacion-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .pedido-header {
@@ -53,13 +60,14 @@
   color: #444;
 }
 
-/* Colores según tipo */
 .notificacion-card.nota {
   border-left-color: #ff9800;
 }
+
 .notificacion-card.recordatorio {
   border-left-color: #2196f3;
 }
+
 .notificacion-card.comentario {
   border-left-color: #4caf50;
 }

@@ -31,7 +31,7 @@ function Register() {
     e.preventDefault();
     if (validate()) {
       console.log({ name, email, password });
-      navigate("/dashboard"); // Cambiar si es necesario redirigir a otra página
+      navigate("/dashboard"); 
     }
   };
 
@@ -39,7 +39,7 @@ function Register() {
     <div className="login-wrapper">
       <div className="login-left">
         <img src={logo} alt="Logo Granittore" className="logo" />
-        <h1>Regístrate en Granittore</h1>
+        <h1>Regístrate en Vadibarot</h1>
       </div>
 
       <div className="login-right">

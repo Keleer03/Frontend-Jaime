@@ -8,6 +8,10 @@
   margin: 0 auto;
 }
 
+.reporte-wrapper h1{
+  color:#1976D2;
+}
+
 .filtros-section {
   margin-bottom: 20px;
   display: flex;
