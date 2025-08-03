@@ -71,3 +71,31 @@
   font-size: 0.95rem;
   color: #2e7d32;
 }
+
+.select-tipo {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.boton-descarga {
+  margin-bottom: 1rem;
+}
+
+.boton-subir {
+  padding: 0.6rem 1.2rem;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.boton-subir:hover {
+  background-color: #1565c0;
+}

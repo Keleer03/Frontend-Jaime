@@ -1,4 +1,3 @@
-/* Reset y box model */
 *,
 *::before,
 *::after {
@@ -12,7 +11,6 @@ body {
   font-family: "Segoe UI", sans-serif;
 }
 
-/* Wrapper general */
 .login-wrapper {
   background: linear-gradient(135deg, #2196f3, #1976d2);
   display: flex;
@@ -22,7 +20,6 @@ body {
   padding: 20px;
 }
 
-/* Columna izquierda */
 .login-left {
   flex: 0 0 50%;
   background: transparent;
@@ -55,7 +52,6 @@ body {
   text-align: center;
 }
 
-/* Columna derecha */
 .login-right {
   flex: 0 0 50%;
   background: transparent;
@@ -66,7 +62,6 @@ body {
   max-width: 540px;
 }
 
-/* Caja del formulario */
 .login-box {
   background: #ffffff;
   border-radius: 16px;
@@ -75,7 +70,6 @@ body {
   border: 1px solid #e0e0e0;
 }
 
-/* Título del formulario */
 .login-box h2 {
   text-align: center;
   font-size: 28px;
@@ -84,14 +78,12 @@ body {
   margin-bottom: 12px;
 }
 
-/* Formulario */
 form {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-/* Campos del formulario */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -128,7 +120,6 @@ input:focus {
   font-size: 14px;
 }
 
-/* Checkbox */
 .form-remember {
   display: flex;
   align-items: center;
@@ -137,7 +128,6 @@ input:focus {
   gap: 8px;
 }
 
-/* Botón */
 .login-button {
   background-color: #1976d2;
   color: #fff;
@@ -158,14 +148,12 @@ input:focus {
   box-shadow: 0 4px 12px rgba(21, 101, 192, 0.2);
 }
 
-/* Mensaje de error */
 .error-text {
   color: #d32f2f;
   font-size: 13px;
   margin-top: 4px;
 }
 
-/* Enlaces inferiores */
 .footer-links {
   margin-top: 20px;
   text-align: center;
@@ -183,12 +171,10 @@ input:focus {
   text-decoration: underline;
 }
 
-/* Inputs con errores */
 .input-error {
   border: 2px solid #d32f2f;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .login-wrapper {
     flex-direction: column;

@@ -13,10 +13,18 @@
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
 }
 
-.sidebar-logo {
-  width: 140px;
-  margin-bottom: 10px;
+.sidebar-header {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin-bottom: 20px; 
 }
+
+.sidebar-logo {
+  width: 160px; 
+  height: auto; 
+}
+
 
 .sidebar-nav ul {
   list-style: none;

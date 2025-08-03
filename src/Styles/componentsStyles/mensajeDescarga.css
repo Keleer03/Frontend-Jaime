@@ -1,0 +1,32 @@
+.mensaje-descarga {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #1976d2;
+  color: white;
+  padding: 14px 20px;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  z-index: 1000;
+  font-size: 0.95rem;
+  animation: aparecer 0.3s ease;
+}
+
+.mensaje-descarga.success {
+  background-color: #2e7d32;
+}
+
+.mensaje-descarga.error {
+  background-color: #d32f2f;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
