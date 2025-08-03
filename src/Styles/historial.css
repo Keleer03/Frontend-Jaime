@@ -6,7 +6,7 @@
 
 .historial-header h1 {
   font-size: 28px;
-  color: #1976D2;
+  color: #1976d2;
   margin-bottom: 6px;
 }
 
@@ -21,13 +21,20 @@
   align-items: center;
   margin: 30px 0 20px;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 20px;
 }
 
 .filtros-historial {
   display: flex;
-  gap: 10px;
+  gap: 15px;
   flex-wrap: wrap;
+  align-items: center;
+}
+
+.filtro-label {
+  margin-right: 10px;
+  font-size: 14px;
+  color: #333;
 }
 
 .input-busqueda {
@@ -40,7 +47,7 @@
 }
 
 .input-busqueda:focus {
-  border-color: #1976D2;
+  border-color: #1976d2;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
   outline: none;
 }
@@ -48,10 +55,22 @@
 .select-filtro {
   padding: 10px 14px;
   font-size: 14px;
-  border-radius: 8px;
   border: 1px solid #ccc;
+  border-radius: 8px;
   background-color: #fff;
   color: #333;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6H0z' fill='%23666'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px 6px;
+  cursor: pointer;
+}
+
+.select-filtro:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+  outline: none;
 }
 
 .historial-tabla {
@@ -64,22 +83,20 @@
 
 .tabla-scroll-wrapper {
   width: 100%;
-  overflow-x: auto; /* Barra de desplazamiento horizontal */
-  -webkit-overflow-scrolling: touch; /* Suavizar desplazamiento en móviles */
-  border-radius: 12px; /* Mantener borde redondeado */
+  max-width: 100%; /* Limita al ancho del contenedor */
+  overflow-x: auto; /* Scroll horizontal siempre disponible */
+  -webkit-overflow-scrolling: touch; /* Suavidad en móviles */
+  border-radius: 12px;
+  max-height: 70vh; /* Altura máxima controlada */
+  overflow-y: auto; /* Scroll vertical si hay muchas filas */
 }
 
+/* Tabla con ajuste al contenido y ancho fijo */
 .tabla-historial {
-  width: 100%;
+  width: 100%; /* Ancho base */
+  table-layout: auto; /* Ajuste dinámico al contenido */
   border-collapse: collapse;
-  background-color: #fff;
-  table-layout: auto; /* Ajustar columnas dinámicamente */
-  min-width: 1500px; /* Ancho mínimo amplio para cotizaciones */
-}
-
-.tabla-historial thead {
-  background-color: #1976D2;
-  color: #fff;
+  min-width: 1200px; /* Ancho mínimo fijo para forzar scroll */
 }
 
 .tabla-historial th,
@@ -87,15 +104,18 @@
   padding: 14px 16px;
   text-align: left;
   font-size: 15px;
-  white-space: nowrap; /* Prevenir que el texto se rompa */
-  overflow: hidden; /* Ocultar texto que exceda */
-  text-overflow: ellipsis; /* Mostrar "..." si el texto es demasiado largo */
+  white-space: nowrap; /* Evita que el texto se rompa */
+  overflow: hidden; /* Oculta texto que exceda */
+  text-overflow: ellipsis; /* Muestra "..." si es necesario */
+  min-width: 150px; /* Mínimo por columna para legibilidad */
 }
 
 .tabla-historial th {
   position: sticky;
   top: 0;
   z-index: 1;
+  background-color: #1976d2; /* Asegura visibilidad del encabezado */
+  color: #fff;
 }
 
 .tabla-historial tbody tr:nth-child(even) {
@@ -114,4 +134,47 @@
   text-align: center;
   margin-top: 30px;
   color: #666;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+  .historial-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filtros-historial {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .filtro-label {
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+
+  .input-busqueda {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .select-filtro {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .tabla-scroll-wrapper {
+    max-height: 50vh;
+  }
+
+  .tabla-historial {
+    min-width: 800px; /* Ajuste para móviles */
+  }
+
+  .tabla-historial th,
+  .tabla-historial td {
+    font-size: 13px;
+    padding: 10px 12px;
+    min-width: 120px; /* Ajuste mínimo en móviles */
+  }
 }

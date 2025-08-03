@@ -14,6 +14,22 @@
   margin-bottom: 20px;
 }
 
+.filtro label {
+  margin-right: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.filtro input {
+  padding: 8px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 300px;
+  margin-top: 5px;
+}
+
 .lista-notificaciones {
   list-style: none;
   padding: 0;
@@ -72,12 +88,8 @@
   border-left-color: #4caf50;
 }
 
-.filtro input {
-  padding: 8px;
-  font-size: 1em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 100%;
-  max-width: 300px;
-  margin-top: 10px;
+.notificaciones-vacio {
+  text-align: center;
+  color: #666;
+  margin-top: 20px;
 }
