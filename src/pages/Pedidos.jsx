@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/pedidos.css";
+import '../index.css';
 import { PlusCircle, Trash2 } from "lucide-react";
 
 const productosEjemplo = [
@@ -193,20 +193,20 @@ export default function Pedidos() {
   };
 
   return (
-    <div className="pedidos-wrapper">
-      <header className="pedidos-header">
+    <div className="wrapper">
+      <header className="header">
         <h1>Gestión de Pedidos</h1>
         <p>Registra nuevos pedidos y revisa el historial.</p>
       </header>
 
-      <button className="btn-agregar-prod" onClick={abrirModal}>
-        <PlusCircle size={18} style={{ marginRight: "8px" }} />
+      <button className="btn btn-primary btn-icon" onClick={abrirModal}>
+        <PlusCircle size={18} />
         Nuevo pedido
       </button>
 
-      <section className="pedidos-tabla">
+      <section className="tabla">
         <h2>Pedidos Registrados</h2>
-        {pedidos.length === 0 && <p>No hay pedidos registrados.</p>}
+        {pedidos.length === 0 && <p className="no-data">No hay pedidos registrados.</p>}
 
         {pedidos.map((pedido, idx) => (
           <div key={idx} className="pedido-item">
@@ -252,7 +252,7 @@ export default function Pedidos() {
               ))}
             </div>
             <button
-              className="btn-eliminar-pedido"
+              className="btn btn-danger btn-icon"
               onClick={() => confirmarEliminarPedido(idx)}
             >
               <Trash2 size={16} /> Eliminar pedido
@@ -267,7 +267,7 @@ export default function Pedidos() {
             <div className="modal-header">
               <h2>Nuevo Pedido</h2>
               <button
-                className="cerrar-modal"
+                className="close-button"
                 onClick={() => setMostrarModal(false)}
               >
                 ×
@@ -276,10 +276,10 @@ export default function Pedidos() {
 
             <div className="modal-body">
               <div className="form-rows">
-                <div className="form-row cliente-row">
-                  <h2 className="field-label">Cliente</h2>
+                <div className="form-row form-row--cliente">
+                  <span className="field-label">Cliente</span>
                   <input
-                    className="input-cliente"
+                    className="input"
                     type="text"
                     placeholder="Nombre del cliente"
                     value={nuevoPedido.cliente}
@@ -293,7 +293,7 @@ export default function Pedidos() {
                   />
                 </div>
 
-                <div className="form-row product-header-row">
+                <div className="form-row form-row--header">
                   <span className="field-label">Producto</span>
                   <span className="field-label">Proveedor</span>
                   <span className="field-label">Cantidad</span>
@@ -305,7 +305,7 @@ export default function Pedidos() {
                 </div>
 
                 {nuevoPedido.productos.map((prod, i) => (
-                  <div key={i} className="form-row producto-row">
+                  <div key={i} className="form-row">
                     <select
                       value={prod.idProducto}
                       onChange={(e) => {
@@ -393,7 +393,7 @@ export default function Pedidos() {
                       }
                     />
                     <button
-                      className="btn-eliminar-producto"
+                      className="btn-accion eliminar"
                       onClick={() => eliminarProducto(i)}
                       title="Eliminar producto"
                     >
@@ -402,19 +402,19 @@ export default function Pedidos() {
                   </div>
                 ))}
 
-                <div className="form-row button-row">
-                  <div className="botones-pedido">
+                <div className="form-row form-row--buttons">
+                  <div className="botones">
                     <button
                       type="button"
-                      className="btn-agregar-prod"
+                      className="btn btn-primary btn-icon"
                       onClick={agregarProducto}
                     >
-                      <PlusCircle size={18} style={{ marginRight: "8px" }} />
+                      <PlusCircle size={18} />
                       Agregar producto
                     </button>
                     <button
                       type="button"
-                      className="btn-guardar-pedido"
+                      className="btn btn-primary"
                       onClick={guardarPedido}
                     >
                       Guardar pedido
@@ -429,17 +429,17 @@ export default function Pedidos() {
 
       {confirmarEliminacion !== null && (
         <div className="modal-overlay">
-          <div className="modal confirmacion">
+          <div className="modal modal--sm">
             <h3>¿Eliminar este pedido?</h3>
             <p>Esta acción no se puede deshacer.</p>
-            <div className="botones-pedido">
+            <div className="botones">
               <button
-                className="btn-agregar-prod"
+                className="btn btn-neutral"
                 onClick={() => setConfirmarEliminacion(null)}
               >
                 Cancelar
               </button>
-              <button className="btn-eliminar-pedido" onClick={eliminarPedido}>
+              <button className="btn btn-danger" onClick={eliminarPedido}>
                 Eliminar
               </button>
             </div>
@@ -449,11 +449,11 @@ export default function Pedidos() {
 
       {mostrarError && (
         <div className="modal-overlay">
-          <div className="modal confirmacion">
+          <div className="modal modal--sm">
             <h3>Error</h3>
             <p>{mostrarError}</p>
-            <div className="botones-pedido">
-              <button className="btn-agregar-prod" onClick={cerrarError}>
+            <div className="botones">
+              <button className="btn btn-neutral" onClick={cerrarError}>
                 Aceptar
               </button>
             </div>

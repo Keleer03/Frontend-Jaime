@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import '../Styles/proveedores.css';
+import '../index.css';
 import BotonAgregar from '../components/Buttons/botonAgregar';
 import { Edit, Trash2 } from 'lucide-react';
 import ProveedorModal from '../components/Modals/ProveedorModal';
 import MensajeEliminar from '../components/Messages/mensajeEliminar';
 
-// Lista de países de ejemplo
 const paises = [
   { id: 'AR', nombre: 'Argentina' },
   { id: 'BR', nombre: 'Brasil' },
@@ -58,13 +57,12 @@ function Proveedores() {
   );
 
   return (
-    <div className="proveedores-wrapper">
-      <header className="proveedores-header">
+    <div className="wrapper">
+      <header className="header">
         <h1>Gestión de Proveedores</h1>
         <p>Consulta, registra o modifica proveedores asociados.</p>
       </header>
-
-      <section className="proveedores-controls">
+      <section className="controls">
         <BotonAgregar onClick={() => abrirModal()} label="Agregar proveedor" />
         <input
           type="text"
@@ -74,10 +72,9 @@ function Proveedores() {
           onChange={(e) => setBusqueda(e.target.value)}
         />
       </section>
-
-      <section className="proveedores-tabla">
+      <section className="tabla">
         {proveedoresFiltrados.length > 0 ? (
-          <table className="tabla-proveedores">
+          <table className="table">
             <thead>
               <tr>
                 <th>Nombre</th>
@@ -111,10 +108,9 @@ function Proveedores() {
             </tbody>
           </table>
         ) : (
-          <p className="no-proveedores">No hay proveedores registrados.</p>
+          <p className="no-data">No hay proveedores registrados.</p>
         )}
       </section>
-
       <ProveedorModal
         show={mostrarModal}
         onClose={cerrarModal}
@@ -139,7 +135,6 @@ function Proveedores() {
           cerrarModal();
         }}
       />
-
       <MensajeEliminar
         show={mostrarModalEliminar}
         onConfirm={confirmarEliminacion}

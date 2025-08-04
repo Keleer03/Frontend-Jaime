@@ -8,8 +8,8 @@
   margin: 0 auto;
 }
 
-.reporte-wrapper h1{
-  color:#1976D2;
+.reporte-header h1 {
+  color: #1976d2;
 }
 
 .filtros-section {
@@ -36,7 +36,7 @@
 }
 
 .seleccion-section h2 {
-  color: #1976D2;
+  color: #1976d2;
   margin-bottom: 10px;
 }
 
@@ -95,9 +95,9 @@
 }
 
 .tabla-reporte th {
-  background-color: #f2f2f2;
+  background-color: #1976d2; /* Consistente con Historial */
   font-weight: 600;
-  color: #333;
+  color: #fff;
 }
 
 .tabla-reporte tr:nth-child(even) {

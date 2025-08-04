@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import '../Styles/historial.css';
-import HistorialControles from '../components/Filters and tables/HistorialControles';
-import HistorialTabla from '../components/Filters and tables/HistorialTabla';
 
 const datosSimulados = {
   productos: [
@@ -14,8 +12,9 @@ const datosSimulados = {
       precioUnitario: 15.5,
       dimensiones: '30x20x10',
       idUnidad: 'U01',
-      codigoProveedor: 'XYZ123',
+      codigoProveedor: 'XYZ123'
     },
+    // Agrega más si quieres probar scroll
   ],
   pedidos: [
     {
@@ -24,8 +23,8 @@ const datosSimulados = {
       unidades: 'cajas',
       precioUnitario: 50,
       proveedor: 'Proveedor A',
-      producto: 'Producto A',
-    },
+      producto: 'Producto A'
+    }
   ],
   cotizaciones: [
     {
@@ -34,8 +33,8 @@ const datosSimulados = {
       valorTotal: 1500,
       porcentajeGanancia: '20%',
       precioVenta: 1800,
-      cartaReporte: 'Reporte1',
-      fechaArriboCR: '2025-07-10',
+      cartaReporte: 'Informe1',
+      fechaArriboCR: '10 de julio de 2025',
       almacenFiscal: 'AF001',
       DUA: 'DUA456',
       TCEuro: 0.92,
@@ -44,48 +43,71 @@ const datosSimulados = {
       fleteMaritimoOAereo: 300,
       valorCIF: 1400,
       tAduana: 5.5,
-      tcr: 650,
-    },
-  ],
+      tcr: 650
+    }
+  ]
 };
 
 function Historial() {
-  const [tipo, setTipo] = useState('');
+  const [tipo, setTipo] = useState('productos');
   const [busqueda, setBusqueda] = useState('');
-  const [datos, setDatos] = useState([]);
 
-  const handleTipoChange = (e) => {
-    const seleccionado = e.target.value;
-    setTipo(seleccionado);
-    setBusqueda('');
-    if (datosSimulados[seleccionado]) {
-      setDatos(datosSimulados[seleccionado]);
-    } else {
-      setDatos([]);
-    }
-  };
+  const datos = datosSimulados[tipo] || [];
 
-  const handleBusqueda = (e) => {
-    setBusqueda(e.target.value);
-  };
+  const datosFiltrados = datos.filter((item) =>
+    Object.values(item).some((val) =>
+      val.toString().toLowerCase().includes(busqueda.toLowerCase())
+    )
+  );
 
   return (
     <div className="historial-wrapper">
       <header className="historial-header">
         <h1>Historial de Consultas</h1>
-        <p>Consulta todos los registros de productos, pedidos o cotizaciones.</p>
+        <p>Consulta todos los registros disponibles.</p>
       </header>
 
-      <HistorialControles
-        tipo={tipo}
-        busqueda={busqueda}
-        onTipoChange={handleTipoChange}
-        onBusquedaChange={handleBusqueda}
-      />
+      <div className="historial-controls">
+        <select value={tipo} onChange={(e) => setTipo(e.target.value)} className="select-filtro">
+          <option value="productos">Productos</option>
+          <option value="pedidos">Pedidos</option>
+          <option value="cotizaciones">Cotizaciones</option>
+        </select>
+        <input
+          type="text"
+          placeholder="Buscar..."
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+          className="input-busqueda"
+        />
+      </div>
 
-      <section className="historial-tabla-container">
-        <HistorialTabla tipo={tipo} datos={datos} busqueda={busqueda} />
-      </section>
+      <div className="tabla-wrapper">
+        {datosFiltrados.length > 0 ? (
+          <div className="tabla-scroll">
+            <table className="tabla-historial">
+              <thead>
+                <tr>
+                  {Object.keys(datosFiltrados[0]).map((key) => (
+                    <th key={key}>{key}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {datosFiltrados.map((fila, index) => (
+                  <tr key={index}>
+                    {Object.entries(fila).map(([key, val]) => (
+                      <td key={key}>{val}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="historial-vacio">No hay resultados para mostrar.</p>
+        )}
+      </div>
     </div>
   );
 }

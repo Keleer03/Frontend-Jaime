@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/notificaciones.css';
+import '../index.css';
 
 const Notificaciones = () => {
   const [notificaciones, setNotificaciones] = useState([]);
@@ -38,14 +38,15 @@ const Notificaciones = () => {
     setNotificaciones(datosEjemplo);
   }, []);
 
-  // Filtrar las notificaciones por el número de pedido ingresado
   const notificacionesFiltradas = notificaciones.filter(n =>
     n.pedido.toLowerCase().includes(busquedaPedido.toLowerCase())
   );
 
   return (
-    <div className="notificaciones-wrapper">
-      <h2>Historial de Notificaciones</h2>
+    <div className="wrapper">
+      <header className="notificaciones-header">
+        <h2>Historial de Notificaciones</h2>
+      </header>
 
       <div className="filtro">
         <label htmlFor="pedido">Buscar por número de pedido:</label>

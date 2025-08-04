@@ -126,9 +126,7 @@ function Reporte() {
   const [datosReporte, setDatosReporte] = useState([]);
 
   const handleSeleccionar = (id) => {
-    setSeleccionados((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
+    setSeleccionados((prev) => (prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]));
   };
 
   const handleBuscar = () => {
@@ -145,15 +143,15 @@ function Reporte() {
 
   const filtrarDatos = (datos) => {
     return datos.filter((item) =>
-      Object.values(item).some((val) =>
-        val.toString().toLowerCase().includes(busqueda.toLowerCase())
-      )
+      Object.values(item).some((val) => val.toString().toLowerCase().includes(busqueda.toLowerCase()))
     );
   };
 
   return (
     <div className="reporte-wrapper">
-      <h1>Generar Reporte</h1>
+      <header className="reporte-header">
+        <h1>Generar Reporte</h1>
+      </header>
 
       <div className="filtros-section">
         <input

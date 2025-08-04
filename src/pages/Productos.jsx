@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../Styles/Productos.css';
+import '../index.css';
 import ProductosModal from '../components/Modals/ProductosModal';
 import MensajeEliminar from '../components/Messages/mensajeEliminar';
 import BotonAgregar from '../components/Buttons/botonAgregar';
@@ -44,12 +44,12 @@ function Productos() {
   };
 
   return (
-    <div className="productos-wrapper">
-      <header className="productos-header">
+    <div className="wrapper">
+      <header className="header">
         <h1>Gestión de Productos</h1>
         <p>Consulta, registra o modifica productos del inventario.</p>
       </header>
-      <section className="productos-controls">
+      <section className="controls">
         <BotonAgregar onClick={() => setMostrarModal(true)} />
         <input
           type="text"
@@ -59,10 +59,10 @@ function Productos() {
           onChange={(e) => setBusqueda(e.target.value)}
         />
       </section>
-      <section className="productos-tabla">
+      <section className="tabla">
         {productosFiltrados.length > 0 ? (
           <div className="tabla-contenedor">
-            <table className="tabla-productos">
+            <table className="table">
               <thead>
                 <tr>
                   <th>Código</th>
@@ -110,7 +110,7 @@ function Productos() {
             </table>
           </div>
         ) : (
-          <p className="no-productos">No hay productos registrados.</p>
+          <p className="no-data">No hay productos registrados.</p>
         )}
       </section>
       <ProductosModal
